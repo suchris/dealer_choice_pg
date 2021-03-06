@@ -1,11 +1,13 @@
 import React from "react";
+import axios from "axios";
 
 const SingleRecipe = (props) => {
-  const { recipe, deSelectRecipe } = props;
+  const { recipeId, resetRecipeId } = props;
+
   return (
     <div>
       <h3>
-        Recipe <small onClick={deSelectRecipe}>Back</small>
+        Recipe <small onClick={resetRecipeId}>Back</small>
       </h3>
       <h4>{recipe.title}</h4>
       <iframe

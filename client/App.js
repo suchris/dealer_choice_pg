@@ -7,51 +7,48 @@ export default class App extends Component {
     super();
     this.state = {
       recipes: [],
-      loading: false,
-      selectedRecipe: {},
+      selectedRecipeId: undefined,
     };
-    this.deSelectRecipe = this.deSelectRecipe.bind(this);
-    this.getRecipe = this.getRecipe.bind(this);
+    this.resetRecipeId = this.resetRecipeId.bind(this);
+    this.setRecipeId = this.setRecipeId.bind(this);
   }
 
   async componentDidMount() {
-    this.setState({
-      recipes: (await axios.get("/api/recipes")).data,
-      loading: false,
-    });
-  }
-
-  async getRecipe(id) {
     try {
-      this.state.selectedRecipe = (await axios.get(`/api/recipes/${id}`)).data;
-      console.log(this.state.selectedRecipe);
+      const allrecipes = (await axios.get("/api/recipes")).data;
+      this.setState({ recipes: allrecipes });
     } catch (ex) {
       console.log(ex);
     }
   }
 
-  deSelectRecipe() {
-    this.setState.selectedRecipe = {};
+  setRecipeId(id) {
+    this.setState({ selectedRecipeId: id });
+  }
+
+  resetRecipeId() {
+    this.setState({ selectedRecipe: undefined });
   }
 
   render() {
-    const { recipes, loading, selectedRecipe } = this.state;
-    if (loading) {
-      return "....loading";
-    }
-
-    if (Object.keys(selectedRecipe) > 0) {
+    const { recipes, selectedRecipeId } = this.state;
+    if (selectedRecipeId) {
+      console.log("SingleRecipe selected:");
       return (
-        <SingleRecipe recipe={selectedRecipe} deSelectRecipe={deSelectRecipe} />
+        <SingleRecipe
+          recipeId={selectedRecipeId}
+          resetRecipeId={this.resetRecipeId}
+        />
       );
     } else {
+      console.log("All Recipes:");
       return (
         <div>
           <h3>Total Recipes ( {recipes.length} )</h3>
           <ul>
             {recipes.map((recipe) => {
               return (
-                <li key={recipe.id} onClick={getRecipe(recipe.id)}>
+                <li key={recipe.id} onClick={() => this.setRecipeId(recipe.id)}>
                   {recipe.title}
                 </li>
               );

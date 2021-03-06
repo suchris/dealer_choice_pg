@@ -2,20 +2,20 @@ import React from "react";
 import axios from "axios";
 
 const SingleRecipe = (props) => {
-  const { recipeId, resetRecipeId } = props;
+  const { recipe, resetRecipeId } = props;
 
   return (
     <div>
       <h3>
-        Recipe <small onClick={resetRecipeId}>Back</small>
+        Recipe <button onClick={resetRecipeId}>Back</button>
       </h3>
       <h4>{recipe.title}</h4>
       <iframe
         width="560"
         height="315"
         src={recipe.videoUrl}
-        frameborder="0"
-        allowfullscreen
+        frameBorder="0"
+        allowFullScreen
       ></iframe>
       <p>{recipe.note}</p>
     </div>

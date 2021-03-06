@@ -36,7 +36,7 @@ export default class App extends Component {
       console.log("SingleRecipe selected:");
       return (
         <SingleRecipe
-          recipeId={selectedRecipeId}
+          recipe={recipes[selectedRecipeId - 1]}
           resetRecipeId={this.resetRecipeId}
         />
       );

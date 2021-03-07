@@ -8,7 +8,8 @@
     "build:dev": "npm run build -- --mode=development --watch",
     "start:dev": "nodemon server --ignore dist/ --ignore client/",
     "start": "node server",
-    "seed": "node server/seed.js"
+    "seed": "node server/seed.js",
+    "deploy": "webpack && git push heroku main"
   },
   "keywords": [],
   "author": "",

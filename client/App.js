@@ -1,6 +1,8 @@
 import axios from "axios";
 import React, { Component } from "react";
+import AllRecipes from "./AllRecipes";
 import SingleRecipe from "./SingleRecipe";
+import AddRecipe from "./AddRecipe";
 
 export default class App extends Component {
   constructor() {
@@ -32,30 +34,20 @@ export default class App extends Component {
 
   render() {
     const { recipes, selectedRecipeId } = this.state;
-    if (selectedRecipeId) {
-      console.log("SingleRecipe selected:");
-      return (
-        <SingleRecipe
-          recipe={recipes[selectedRecipeId - 1]}
-          resetRecipeId={this.resetRecipeId}
-        />
-      );
-    } else {
-      console.log("All Recipes:");
-      return (
-        <div>
-          <h3>Total Recipes ( {recipes.length} )</h3>
-          <ul>
-            {recipes.map((recipe) => {
-              return (
-                <li key={recipe.id} onClick={() => this.setRecipeId(recipe.id)}>
-                  {recipe.title}
-                </li>
-              );
-            })}
-          </ul>
-        </div>
-      );
-    }
+
+    return (
+      <div>
+        <h3>Add New Recipe:</h3>
+        <AddRecipe />
+        {selectedRecipeId ? (
+          <SingleRecipe
+            recipe={recipes[selectedRecipeId - 1]}
+            resetRecipeId={this.resetRecipeId}
+          />
+        ) : (
+          <AllRecipes recipes={recipes} setRecipeId={this.setRecipeId} />
+        )}
+      </div>
+    );
   }
 }

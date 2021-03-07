@@ -24,6 +24,28 @@ router.get("/recipes/:id", async (req, res, next) => {
   }
 });
 
+router.get("/tags", async (req, res, next) => {
+  try {
+    const SQL = `SELECT * FROM tag;`;
+    console.log(SQL);
+    const tags = await client.query(SQL);
+    res.status(200).send(tags.rows);
+  } catch (ex) {
+    next(ex);
+  }
+});
+
+router.get("/tags/:id", async (req, res, next) => {
+  try {
+    const SQL = `SELECT * FROM tag WHERE id = ${req.params.id};`;
+    console.log(SQL);
+    const tag = await client.query(SQL);
+    res.status(200).send(tag.rows);
+  } catch (ex) {
+    next(ex);
+  }
+});
+
 router.post("/recipes", async (req, res, next) => {
   try {
     const { title, videoUrl, note, tags } = req.body;

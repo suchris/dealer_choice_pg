@@ -27,7 +27,7 @@ export default class App extends Component {
   }
 
   resetRecipeId() {
-    this.setState({ selectedRecipe: undefined });
+    this.setState({ selectedRecipeId: undefined });
   }
 
   render() {

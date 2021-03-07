@@ -1,5 +1,5 @@
 import React from "react";
-import axios from "axios";
+import ReactPlayer from "react-player";
 
 const SingleRecipe = (props) => {
   const { recipe, resetRecipeId } = props;
@@ -7,16 +7,10 @@ const SingleRecipe = (props) => {
   return (
     <div>
       <h3>
-        Recipe <button onClick={resetRecipeId}>Back</button>
+        Recipe <button onClick={() => resetRecipeId()}>Back</button>
       </h3>
       <h4>{recipe.title}</h4>
-      <iframe
-        width="560"
-        height="315"
-        src={recipe.videoUrl}
-        frameBorder="0"
-        allowFullScreen
-      ></iframe>
+      <ReactPlayer url={recipe.videourl} />
       <p>{recipe.note}</p>
     </div>
   );

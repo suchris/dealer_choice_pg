@@ -52,6 +52,17 @@ const syncAndSeed = async () => {
       11. Add the garam masala, dried fenugreek and coriander 
       12. Mix to combine 
       13. Serve with homemade naan or steamed rice and enjoy!');
+
+    INSERT INTO recipe(title, videoUrl, note) VALUES ('How to Make French Toast!! Classic Quick and Easy Recipe', 'https://www.youtube.com/watch?v=r1ZLSbQ0r0I', '
+    Ingredeints:
+      * 6 sliced Texas toast or thick cut bread
+      * 2 large eggs
+      * 1/4 cup milk or cream
+      * 1 tsp sugar
+      * 1/4 tsp cinnamon
+      * pinch of salt
+      * splash of vanilla extract
+      * butter and vegetable oil for cooking');
   `;
 
   await client.query(SQL);

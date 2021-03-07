@@ -26,9 +26,9 @@ router.get("/recipes/:id", async (req, res, next) => {
 
 router.post("/recipes", async (req, res, next) => {
   try {
+    debugger;
     const { title, videourl, note } = req.body;
     let SQL = `INSERT INTO recipe(title, videourl, note) VALUES ('${title}', '${videourl}', '${note}') RETURNING id;`;
-    console.log("post: ", SQL);
     const id = await client.query(SQL);
 
     res.status(201).redirect(`/recipes/${id}`);

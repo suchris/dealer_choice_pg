@@ -7,10 +7,12 @@ class AddRecipe extends Component {
     this.state = { recipe: {} };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.postRecipe = this.postRecipe.bind(this);
   }
 
   async postRecipe() {
     try {
+      debugger;
       const id = (await axios.post("/api/recipes", this.state.recipe)).data;
       const recipe = (await axios.get(`/api/recipes/${id}`)).data;
       this.setState({ recipe });
@@ -27,7 +29,6 @@ class AddRecipe extends Component {
   }
 
   handleSubmit(event) {
-    event.preventDefault();
     this.postRecipe();
   }
 
@@ -63,7 +64,7 @@ class AddRecipe extends Component {
           <br></br>
           <textarea
             name="note"
-            placeholder="Ingredients:"
+            placeholder="Ingredients/Cooking Method"
             rows="10"
             cols="80"
             onChange={this.handleChange}

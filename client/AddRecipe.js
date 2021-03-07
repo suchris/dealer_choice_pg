@@ -54,7 +54,7 @@ class AddRecipe extends Component {
             type="url"
             name="videourl"
             size="60"
-            placeholder="https://www.youtube.com/watch?v=19ngAYMz7zk"
+            placeholder="recipe url..."
             onChange={this.handleChange}
           />
         </label>
@@ -64,7 +64,7 @@ class AddRecipe extends Component {
           <br></br>
           <textarea
             name="note"
-            placeholder="Ingredients/Cooking Method"
+            placeholder="recipe directions..."
             rows="10"
             cols="80"
             onChange={this.handleChange}

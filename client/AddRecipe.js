@@ -4,7 +4,9 @@ import axios from "axios";
 class AddRecipe extends Component {
   constructor() {
     super();
-    this.state = { recipe: {}, isCreated: false };
+    this.state = { recipe: {} };
+    this.handleChange = this.handleChange.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
   }
 
   async postRecipe() {
@@ -18,14 +20,15 @@ class AddRecipe extends Component {
   }
 
   handleChange(event) {
-    this.setState({ value: event.target.value });
-    console.log("handleChange:");
-    console.log(this.state);
+    const key = event.target.name;
+    const value = event.target.value;
+    this.state.recipe[key] = value;
+    console.log(this.state.recipe);
   }
 
   handleSubmit(event) {
     event.preventDefault();
-    console.log("handleSubmit:");
+    this.postRecipe();
   }
 
   render() {
@@ -37,7 +40,6 @@ class AddRecipe extends Component {
           <input
             type="text"
             name="title"
-            value={this.state.recipe.title}
             size="80"
             required
             onChange={this.handleChange}
@@ -49,8 +51,7 @@ class AddRecipe extends Component {
           <br></br>
           <input
             type="url"
-            name="url"
-            value={this.state.recipe.videourl}
+            name="videourl"
             size="60"
             placeholder="https://www.youtube.com/watch?v=19ngAYMz7zk"
             onChange={this.handleChange}
@@ -62,7 +63,6 @@ class AddRecipe extends Component {
           <br></br>
           <textarea
             name="note"
-            value={this.state.recipe.note}
             placeholder="Ingredients:"
             rows="10"
             cols="80"

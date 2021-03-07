@@ -24,44 +24,14 @@ router.get("/recipes/:id", async (req, res, next) => {
   }
 });
 
-router.get("/tags", async (req, res, next) => {
-  try {
-    const SQL = `SELECT * FROM tag;`;
-    console.log(SQL);
-    const tags = await client.query(SQL);
-    res.status(200).send(tags.rows);
-  } catch (ex) {
-    next(ex);
-  }
-});
-
-router.get("/tags/:id", async (req, res, next) => {
-  try {
-    const SQL = `SELECT * FROM tag WHERE id = ${req.params.id};`;
-    console.log(SQL);
-    const tag = await client.query(SQL);
-    res.status(200).send(tag.rows);
-  } catch (ex) {
-    next(ex);
-  }
-});
-
 router.post("/recipes", async (req, res, next) => {
   try {
-    const { title, videoUrl, note, tags } = req.body;
-    let SQL = `INSERT INTO recipe(title, videoUrl, note) VALUES ('${title}', '${videoUrl}', '${note}') RETURNING id;`;
+    const { title, videourl, note } = req.body;
+    let SQL = `INSERT INTO recipe(title, videourl, note) VALUES ('${title}', '${videourl}', '${note}') RETURNING id;`;
+    console.log("post: ", SQL);
     const id = await client.query(SQL);
-    for (let i = 0; i < tags.length; i++) {
-      SQL = `SELECT id FROM tag WHERE name = '${tags[i]};`;
-      let tagId = await client.query(SQL);
-      if (!tagId) {
-        SQL = `INSERT INTO tag(name) VALUES('${tag[i]}') RETURN id;`;
-        tagId = await client.query(SQL);
-      }
-      SQL = `INSERT INTO tag_recipe(tag_id, recipe_id) VALUES (tagId, id);`;
-      await client.query(SQL);
-    }
-    res.status(201).redirect("/recipes/:" + id);
+
+    res.status(201).redirect(`/recipes/${id}`);
   } catch (ex) {
     next(ex);
   }
@@ -72,8 +42,6 @@ router.delete("/recipes/:id", async (req, res, next) => {
     let SQL = `SELECT id from recipe WHERE id = ${req.params.id}`;
     const id = await client.query(SQL);
     if (id) {
-      SQL = `DELETE FROM tag_recipe WHERE recipe_id = '${id}';`;
-      await client.query(SQL);
       SQL = `DELETE FROM recipe WHERE id = '${id}';`;
       await client.query(SQL);
       res.redirect("/recipes");

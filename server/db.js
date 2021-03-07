@@ -1,6 +1,8 @@
 const pg = require("pg");
 
-const client = new pg.Client("postgres://localhost/recipe_db");
+const client = new pg.Client(
+  process.env.DATABASE_URL || "postgres://localhost/recipe_db"
+);
 
 const syncAndSeed = async () => {
   const SQL = `

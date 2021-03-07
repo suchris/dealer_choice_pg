@@ -1,4 +1,3 @@
-const { client, syncAndSeed } = require("./db.js");
 const express = require("express");
 const { static } = express;
 const path = require("path");
@@ -20,7 +19,7 @@ app.use("/public", static(path.join(__dirname, "../public")));
 app.use("/api", require("./api"));
 
 // Sends index.html
-app.get("/", (req, res, next) => {
+app.get("/*", (req, res, next) => {
   res.sendFile(path.join(__dirname, "..", "client", "index.html"));
 });
 
@@ -33,9 +32,6 @@ app.use((err, req, res, next) => {
 
 const init = async () => {
   try {
-    await client.connect();
-    await syncAndSeed();
-    console.log("Connect and seeded database");
     const port = process.env.PORT || 3000;
     app.listen(port, () =>
       console.log(`

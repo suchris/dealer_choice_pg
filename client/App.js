@@ -37,15 +37,18 @@ export default class App extends Component {
 
     return (
       <div>
-        <h3>Add New Recipe:</h3>
-        <AddRecipe />
         {selectedRecipeId ? (
           <SingleRecipe
             recipe={recipes[selectedRecipeId - 1]}
             resetRecipeId={this.resetRecipeId}
           />
         ) : (
-          <AllRecipes recipes={recipes} setRecipeId={this.setRecipeId} />
+          <div>
+            <h3>Add New Recipe:</h3>
+            <AddRecipe />
+            <hr></hr>
+            <AllRecipes recipes={recipes} setRecipeId={this.setRecipeId} />
+          </div>
         )}
       </div>
     );

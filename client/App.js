@@ -9,6 +9,9 @@ export default class App extends Component {
     super();
     this.state = {
       recipes: [],
+      //you should initialize objects in the state as the same type of object they would be
+      //so if id will be a string, initialize as a string
+      //if id will be a number, initialize as a number
       selectedRecipeId: undefined,
     };
     this.resetRecipeId = this.resetRecipeId.bind(this);

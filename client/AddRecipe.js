@@ -15,6 +15,8 @@ class AddRecipe extends Component {
       debugger;
       const id = (await axios.post("/api/recipes", this.state.recipe)).data;
       const recipe = (await axios.get(`/api/recipes/${id}`)).data;
+      /*see comment in api/index.js. you can accomplish posting data
+      and getting back the newly posted data in one request to the server */
       this.setState({ recipe });
     } catch (ex) {
       console.log(ex);

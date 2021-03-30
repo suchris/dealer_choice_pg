@@ -28,7 +28,10 @@ router.post("/recipes", async (req, res, next) => {
     const { title, videourl, note } = req.body;
     let SQL = `INSERT INTO recipe(title, videourl, note) VALUES ('${title}', '${videourl}', '${note}') RETURNING id;`;
     const id = await db.query(SQL);
-
+    /* instead of just returning the id and redirecting,
+    it's better to return the entire
+    row and send that back
+     */
     res.status(201).redirect(`/recipes/${id}`);
   } catch (ex) {
     next(ex);
@@ -42,6 +45,8 @@ router.delete("/recipes/:id", async (req, res, next) => {
     if (id) {
       SQL = `DELETE FROM recipe WHERE id = '${id}';`;
       await db.query(SQL);
+      //you typically shouldnt use res.redirect in your api
+      //see RESTful API principles here: https://restfulapi.net/http-methods/#delete
       res.redirect("/recipes");
     }
     res.status(404).send({ message: `Recipe with id ${id} is not found` });
